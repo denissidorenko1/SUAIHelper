@@ -2,16 +2,13 @@ import Foundation
 
 enum Endpoint {
     case timetable(group: QueryType?, teacher: QueryType?, department: QueryType?, room: QueryType?)
-    case groups
-    case teachers
-    case departments
-    case rooms
+    case filter
     
-    static let baseURL: URL = URL(string: "https://guap.ru/rasp")!
+    static let baseURL: URL = URL(string: "https://guap.ru")!
     
     // TODO: пофиксить
     var path: String {
-        return ""
+        "rasp"
     }
     
     var url: URL? {
@@ -20,26 +17,20 @@ enum Endpoint {
         case .timetable(let group, let teacher, let department, let room):
             var queryItems: [URLQueryItem] = []
             if let group {
-                queryItems.append(URLQueryItem(name: "gr", value: group.name))
+                queryItems.append(URLQueryItem(name: "gr", value: String(group.id)))
             }
             if let teacher {
-                queryItems.append(URLQueryItem(name: "pr", value: teacher.name))
+                queryItems.append(URLQueryItem(name: "pr", value: String(teacher.id)))
             }
             if let department {
-                queryItems.append(URLQueryItem(name: "ch", value: department.name))
+                queryItems.append(URLQueryItem(name: "ch", value: String(department.id)))
             }
             if let room {
-                queryItems.append(URLQueryItem(name: "ad", value: room.name))
+                queryItems.append(URLQueryItem(name: "ad", value: String(room.id)))
             }
             components?.queryItems = queryItems
             return components?.url
-        case .groups:
-            return components?.url
-        case .teachers:
-            return components?.url
-        case .departments:
-            return components?.url
-        case .rooms:
+        case .filter:
             return components?.url
         }
     }

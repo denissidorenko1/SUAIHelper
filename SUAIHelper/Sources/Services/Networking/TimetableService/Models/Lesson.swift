@@ -8,7 +8,7 @@ struct Lesson: Decodable {
     let teachers: [String]?
     let groupList: [String]
     let weekType: WeekType
-    let lectionNumber: Int?
-    let lectionTime: String?
-    let lectionType: String
+    let lessonNumber: Int?
+    let lessonTime: String?
+    let lessonType: String
 }

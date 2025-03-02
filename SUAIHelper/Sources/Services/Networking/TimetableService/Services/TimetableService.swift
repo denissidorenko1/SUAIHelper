@@ -1,17 +1,17 @@
 import Foundation
 
-// MARK: - ToDoNetworkingService
+// MARK: - TimetableService
 final class TimetableService {
 
     // MARK: - Dependencies
     static let shared = TimetableService()
 
     // MARK: - Private properties
-    private let networkingService: TimetableNetworkingServiceProtocol
+    private let timetableService: TimetableNetworkingServiceProtocol
 
     // MARK: - Initializer
-    init(networkingService: TimetableNetworkingServiceProtocol = TimetableNetworkingService() ) {
-        self.networkingService = networkingService
+    init(timetableService: TimetableNetworkingServiceProtocol = TimetableNetworkingService() ) {
+        self.timetableService = timetableService
     }
 
     // MARK: - Public Methods
@@ -21,7 +21,7 @@ final class TimetableService {
         department: QueryType? = nil,
         room: QueryType? = nil
     ) async throws -> [Lesson] {
-        return try await networkingService.getLessons(
+        return try await timetableService.getLessons(
             request: TimetableRequest(
                 group: group,
                 teacher: teacher,
@@ -32,18 +32,18 @@ final class TimetableService {
     }
     
     func getGroupList() async throws -> [Group] {
-        return try await networkingService.getGroups(request: FilterRequest())
+        return try await timetableService.getGroups(request: FilterRequest())
     }
     
     func getTeacherList() async throws -> [Teacher] {
-        return try await networkingService.getTeachers(request: FilterRequest())
+        return try await timetableService.getTeachers(request: FilterRequest())
     }
     
     func getDepartmentList() async throws -> [Department] {
-        return try await networkingService.getDepartments(request: FilterRequest())
+        return try await timetableService.getDepartments(request: FilterRequest())
     }
     
     func getRoomList() async throws -> [Room] {
-        return try await networkingService.getRooms(request: FilterRequest())
+        return try await timetableService.getRooms(request: FilterRequest())
     }
 }
