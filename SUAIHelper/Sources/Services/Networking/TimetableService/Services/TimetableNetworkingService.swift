@@ -4,20 +4,14 @@ import SwiftSoup
 struct TimetableNetworkingService: TimetableNetworkingServiceProtocol {
     // MARK: - Dependencies
     private let session: URLSession
-    private let decoder: JSONDecoder
-    private let encoder: JSONEncoder
     private let parser: TimetableParserProtocol
     
     // MARK: - Initializer
     init(
         session: URLSession = .shared,
-        decoder: JSONDecoder = .init(),
-        encoder: JSONEncoder = .init(),
         parser: TimetableParserProtocol = TimetableParser()
     ) {
         self.session = session
-        self.decoder = decoder
-        self.encoder = encoder
         self.parser = parser
     }
     
