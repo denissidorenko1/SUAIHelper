@@ -1,21 +1,28 @@
-//
-//  ContentView.swift
-//  SUAIHelper
-//
-//  Created by Denis on 30.01.2025.
-//
-
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            ViewFactory.makeOfficialTimetableView()
+                .tabItem {
+                    Label("Расписание", systemImage: "calendar")
+                }
+            ViewFactory.makeCustomTimetableView()
+                .tabItem {
+                    Label("Доп. расписание", systemImage: "gyroscope")
+                }
+                
+            ViewFactory.makeAssignmentView()
+                .tabItem {
+                    Label("Личный кабинет", systemImage: "person.crop.circle")
+                }
+            
+            ViewFactory.makeNavigatorView()
+                .tabItem {
+                    Label("Навигатор", systemImage: "map")
+                }
         }
-        .padding()
+        .accentColor(.black)
     }
 }
 
