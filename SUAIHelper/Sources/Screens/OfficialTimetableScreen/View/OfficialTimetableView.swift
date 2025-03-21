@@ -17,21 +17,28 @@ struct OfficialTimetableView: View {
                     LessonCell(lesson: lesson)
                         .frame(height: 80)
                         .listRowSeparator(.hidden)
+                        .onTapGesture {
+                            viewModel.selectedLesson = lesson
+                        }
                 }
                 
             }
             .navigationTitle("Расписание")
             .listStyle(.plain)
-                    .onAppear {
-                        Task {
-                            do {
-                                try await viewModel.fetchLessons()
-                            } catch {
-                                print("error: \(error.localizedDescription)")
-                            }
-            
-                        }
+            .sheet(item: $viewModel.selectedLesson) { lesson in
+                LessonDetailView(lesson: lesson)
+            }
+
+            .onAppear {
+                Task {
+                    do {
+                        try await viewModel.fetchLessons()
+                    } catch {
+                        print("error: \(error.localizedDescription)")
                     }
+                    
+                }
+            }
         }
         
     }

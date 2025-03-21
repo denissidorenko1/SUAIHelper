@@ -13,3 +13,7 @@ struct Lesson: Decodable {
     let lessonTime: String?
     let lessonType: String
 }
+
+extension Lesson: Identifiable {
+    
+}

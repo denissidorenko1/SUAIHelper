@@ -1,9 +1,12 @@
 import SwiftUI
 
 final class OfficialTimetableViewModel: ObservableObject {
-    let timetableService: TimetableService
+    private let timetableService: TimetableService
     
+    // MARK: - Public properties
     @Published var lessons: [Lesson] = []
+    @Published var selectedLesson: Lesson?
+
     
     init(timetableService: TimetableService = TimetableService()) {
         self.timetableService = timetableService

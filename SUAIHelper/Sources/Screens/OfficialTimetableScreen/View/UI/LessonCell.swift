@@ -12,8 +12,8 @@ struct LessonCell: View {
         HStack {
             VStack {
                 Text("\(lesson.lessonNumber ?? 0)")
-                    .foregroundStyle(.red)
-                    .font(.system(size: 32, weight: .bold))
+                    .foregroundStyle(iconColor)
+                    .font(.system(size: 32, weight: .semibold))
                 if let time = lesson.lessonTime, time.split(separator: "—").count == 2 {
                     let timeComponents = time.split(separator: "—").map {String($0)}
                     VStack {
@@ -35,7 +35,6 @@ struct LessonCell: View {
             }
             Spacer()
         }
-        
         .padding(.horizontal, 15)
         .padding(.vertical, 10)
         .background(alignment: .center) {
@@ -44,6 +43,16 @@ struct LessonCell: View {
         }
     }
         
+    var iconColor: Color {
+        switch lesson.weekType {
+            case .red:
+                .red
+            case .blue:
+                .blue
+            case .universal:
+                .orange
+        }
+    }
 }
 
 

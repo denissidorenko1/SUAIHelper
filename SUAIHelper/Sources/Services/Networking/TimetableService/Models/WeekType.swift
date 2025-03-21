@@ -1,7 +1,7 @@
 import Foundation
 
-enum WeekType: Decodable {
-    case red
-    case blue
-    case universal
+enum WeekType: String, Decodable {
+    case red = "Верхняя"
+    case blue = "Нижняя"
+    case universal = "Общая"
 }
