@@ -9,4 +9,5 @@ protocol TimetableNetworkingServiceProtocol: Sendable {
     func getTeachers(request: NetworkRequest) async throws -> [Teacher]
     func getDepartments(request: NetworkRequest) async throws -> [Department]
     func getRooms(request: NetworkRequest) async throws -> [Room]
+    func getSearchFilterOptions(request: NetworkRequest) async throws -> SearchFilterOptions
 }

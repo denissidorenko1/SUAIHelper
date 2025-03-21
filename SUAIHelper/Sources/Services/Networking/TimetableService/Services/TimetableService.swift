@@ -46,4 +46,8 @@ final class TimetableService {
     func getRoomList() async throws -> [Room] {
         return try await timetableService.getRooms(request: FilterRequest())
     }
+    
+    func getSearchFilterOptions() async throws -> SearchFilterOptions {
+        return try await timetableService.getSearchFilterOptions(request: FilterRequest())
+    }
 }
