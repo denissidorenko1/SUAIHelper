@@ -1,6 +1,7 @@
 import Foundation
 
 struct Lesson: Decodable {
+    let id: UUID
     let day: String
     let title: String
     let room: String

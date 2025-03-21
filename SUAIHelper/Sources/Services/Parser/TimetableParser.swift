@@ -27,28 +27,31 @@ class TimetableParser: TimetableParserProtocol, @unchecked Sendable {
             
             var lessons: [Lesson] = []
             var nextElement = try document.select(CSSQuery.day).first()
+            var day: String?
+            var lessonNumber: Int?
+            var lessonTime: String?
             
             while let element = nextElement {
-                var day: String?
-                var lessonNumber: Int?
-                var lessonTime: String?
-                
-                if try element.iS(CSSQuery.time) {
+                switch true {
+                case try element.iS(CSSQuery.time):
                     (lessonNumber, lessonTime) = try extractTime(from: element)
                     nextElement = try element.nextElementSibling()
-                } else if try element.iS(CSSQuery.lesson) {
+
+                case try element.iS(CSSQuery.lesson):
                     let lesson = try extractLesson(
                         from: element,
                         day: day,
                         lessonNumber: lessonNumber,
                         lessonTime: lessonTime
                     )
-                    nextElement = try element.nextElementSibling()
                     lessons.append(lesson)
-                } else if try element.iS(CSSQuery.day) {
+                    nextElement = try element.nextElementSibling()
+
+                case try element.iS(CSSQuery.day):
                     day = try element.text()
                     nextElement = try element.nextElementSibling()
-                } else {
+
+                default:
                     nextElement = nil
                 }
             }
@@ -120,6 +123,7 @@ class TimetableParser: TimetableParserProtocol, @unchecked Sendable {
         let lessonType = try determineLessonType(for: element)
         
         return Lesson(
+            id: UUID(),
             day: day,
             title: title,
             room: room,
@@ -136,7 +140,7 @@ class TimetableParser: TimetableParserProtocol, @unchecked Sendable {
     private func extractTime(from element: Element) throws -> (Int?, String?) {
         let text = try element.text().components(separatedBy: " ")
         let lessonNumber = Int(text.first ?? "")
-        let lessonTime = text.dropFirst().joined(separator: " ").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
+        let lessonTime = text.dropFirst(2).joined(separator: " ").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
         return (lessonNumber, lessonTime)
     }
     
