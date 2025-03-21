@@ -13,13 +13,17 @@ struct OfficialTimetableView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                List(viewModel.lessons, id: \.id) { lesson in
-                    LessonCell(lesson: lesson)
-                        .frame(height: 80)
-                        .listRowSeparator(.hidden)
-                        .onTapGesture {
-                            viewModel.selectedLesson = lesson
+                List(viewModel.timetable) { day in
+                    Section(header: Text(day.day).font(.headline)) {
+                        ForEach(day.lessons) { lesson in
+                            LessonCell(lesson: lesson)
+                                .frame(height: 80)
+                                .listRowSeparator(.hidden)
+                                .onTapGesture {
+                                    viewModel.selectedLesson = lesson
+                                }
                         }
+                    }
                 }
                 
             }
@@ -28,7 +32,7 @@ struct OfficialTimetableView: View {
             .sheet(item: $viewModel.selectedLesson) { lesson in
                 LessonDetailView(lesson: lesson)
             }
-
+            
             .onAppear {
                 Task {
                     do {
