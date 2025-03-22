@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Teacher: Codable, QueryType {
+struct Teacher: Codable, QueryType, Hashable {
     let id: Int
     let name: String
 }

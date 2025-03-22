@@ -5,6 +5,12 @@ final class OfficialTimetableViewModel: ObservableObject {
     
     // MARK: - Public properties
     @Published var selectedLesson: Lesson?
+    @Published var isShowingSearchView: Bool = false
+    
+    @Published var selectedGroup: Group?
+    @Published var selectedRoom: Room?
+    @Published var selectedTeacher: Teacher?
+    @Published var selectedDepartment: Department?
 
     var timetable: [DayLesson] {
         splitLessonsByDay(with: lessons)
@@ -13,13 +19,15 @@ final class OfficialTimetableViewModel: ObservableObject {
     // MARK: - Private properties
     @Published private var lessons: [Lesson] = []
     
-    init(timetableService: TimetableService = TimetableService()) {
+    init(
+        timetableService: TimetableService = TimetableService()
+    ) {
         self.timetableService = timetableService
     }
     
     
     func fetchLessons() async throws {
-        let fetchedLessons = try await timetableService.getLessonList(group: Group(id: 5949, name: "4431"))
+        let fetchedLessons = try await timetableService.getLessonList(group: selectedGroup, teacher: selectedTeacher, department: selectedDepartment, room: selectedRoom)
         self.lessons = fetchedLessons
     }
     

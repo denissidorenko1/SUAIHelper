@@ -6,9 +6,10 @@
 //
 
 import Foundation
+
 struct SearchFilterOptions {
-    let departments: [QueryType]
-    let rooms: [QueryType]
-    let teachers: [QueryType]
-    let groups: [QueryType]
+    let departments: [Department]
+    let rooms: [Room]
+    let teachers: [Teacher]
+    let groups: [Group]
 }

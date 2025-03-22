@@ -18,4 +18,8 @@ final class ViewFactory: ViewFactoryProtocol {
     static func makeAssignmentView() -> AssignmentView {
         AssignmentView()
     }
+    
+    static func makeLessonDetailView(with lesson: Lesson) -> LessonDetailView {
+        LessonDetailView(lesson: lesson)
+    }
 }

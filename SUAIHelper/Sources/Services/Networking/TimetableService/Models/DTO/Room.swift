@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Room: Codable, QueryType {
+struct Room: Codable, QueryType, Hashable {
     let id: Int
     let name: String
 }
